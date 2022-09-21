@@ -4,6 +4,6 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-func (h NoteHandler) GetNotes(c *gin.Context) {
+func GetNotes(c *gin.Context) {
 
 }
