@@ -2,20 +2,17 @@ package routes
 
 import (
 	notecontrollers "noteappbackend/controllers/noteControllers"
+	"noteappbackend/middlewares"
 
 	"github.com/gin-gonic/gin"
-	"gorm.io/gorm"
 )
 
-func RegisterNoteRoutes(gin *gin.Engine, db *gorm.DB) {
-	handler := &notecontrollers.NoteHandler{
-		DB: db,
-	}
+func RegisterNoteRoutes(gin *gin.Engine) {
 
 	routes := gin.Group("/notes")
-	routes.GET("/", handler.GetNotes)
-	routes.GET("/:id", handler.GetNote)
-	routes.PUT("/:id", handler.UpdateNote)
-	routes.POST("/", handler.PostNote)
-	routes.DELETE("/:id", handler.DeleteNote)
+	routes.GET("/", middlewares.RequireAuth, notecontrollers.GetNotes)
+	routes.GET("/:id", middlewares.RequireAuth, notecontrollers.GetNote)
+	routes.PUT("/:id", middlewares.RequireAuth, notecontrollers.UpdateNote)
+	routes.POST("/", middlewares.RequireAuth, notecontrollers.PostNote)
+	routes.DELETE("/:id", middlewares.RequireAuth, notecontrollers.DeleteNote)
 }
