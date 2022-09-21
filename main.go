@@ -15,7 +15,7 @@ func main() {
 	router := gin.Default()
 
 	// Connect to database
-	db := database.Connect()
+	database.Connect()
 
 	// load env file
 	err := godotenv.Load(".env")
@@ -25,8 +25,8 @@ func main() {
 	}
 
 	//add routes
-	routes.RegisterUserRoutes(router, db)
-	routes.RegisterNoteRoutes(router, db)
+	routes.RegisterUserRoutes(router)
+	routes.RegisterNoteRoutes(router)
 
 	// gets run when requested route isn't found
 	router.NoRoute(func(ctx *gin.Context) {
