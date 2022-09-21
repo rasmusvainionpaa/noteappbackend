@@ -14,7 +14,7 @@ func RegisterUserRoutes(gin *gin.Engine, db *gorm.DB) {
 
 	routes := gin.Group("/user")
 	routes.GET("/", handler.GetUser)
-	routes.GET("/:id", handler.GetUsers)
+	routes.GET("/:id", handler.GetUser)
 	routes.PUT("/:id", handler.UpdateUser)
 	routes.POST("/", handler.CreateUser)
 	routes.DELETE("/:id", handler.DeleteUser)
