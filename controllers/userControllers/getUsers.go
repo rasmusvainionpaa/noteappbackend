@@ -2,6 +2,6 @@ package usercontrollers
 
 import "github.com/gin-gonic/gin"
 
-func (u UserHandler) GetUsers(c *gin.Context) {
+func GetUsers(c *gin.Context) {
 
 }
