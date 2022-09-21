@@ -2,20 +2,18 @@ package routes
 
 import (
 	usercontrollers "noteappbackend/controllers/userControllers"
+	"noteappbackend/middlewares"
 
 	"github.com/gin-gonic/gin"
-	"gorm.io/gorm"
 )
 
-func RegisterUserRoutes(gin *gin.Engine, db *gorm.DB) {
-	handler := &usercontrollers.UserHandler{
-		DB: db,
-	}
+func RegisterUserRoutes(gin *gin.Engine) {
 
 	routes := gin.Group("/user")
-	routes.GET("/", handler.GetUser)
-	routes.GET("/:id", handler.GetUser)
-	routes.PUT("/:id", handler.UpdateUser)
-	routes.POST("/", handler.CreateUser)
-	routes.DELETE("/:id", handler.DeleteUser)
+	routes.GET("/", usercontrollers.GetUser)
+	routes.GET("/:id", usercontrollers.GetUser)
+	routes.PUT("/:id", middlewares.RequireAuth, usercontrollers.UpdateUser)
+	routes.POST("/signup", usercontrollers.CreateUser)
+	routes.POST("/login", usercontrollers.LoginUser)
+	routes.DELETE("/:id", middlewares.RequireAuth, usercontrollers.DeleteUser)
 }
