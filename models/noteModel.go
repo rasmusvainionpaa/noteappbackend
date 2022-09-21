@@ -8,8 +8,8 @@ type Note struct {
 	// created at
 	// updated at
 	// deleted at
-	UserID         float32 `json:"UserID"`
-	Title          string  `json:"Title"`
-	Content        string  `json:"Content"`
+	UserID         float32 `json:"userId"`
+	Title          string  `json:"title"`
+	Content        string  `json:"content"`
 	InsideHumidity float32 `json:"InsideHumidity"`
 }
