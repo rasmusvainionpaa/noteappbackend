@@ -46,7 +46,7 @@ func CreateUser(c *gin.Context) {
 	}
 
 	// create user to database
-	result := database.DB.Create((&user))
+	result := database.DB.Create(&user)
 
 	if result.Error != nil {
 		c.JSON(http.StatusBadRequest, gin.H{
