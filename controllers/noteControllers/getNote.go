@@ -2,6 +2,7 @@ package notecontrollers
 
 import (
 	"net/http"
+	"noteappbackend/models"
 
 	"github.com/gin-gonic/gin"
 )
@@ -11,12 +12,12 @@ func GetNote(c *gin.Context) {
 
 	if userExist == false {
 		c.JSON(http.StatusUnauthorized, gin.H{
-			"error": "can-t find user",
+			"error": "can't find user",
 		})
 		return
 	}
 
 	c.JSON(http.StatusOK, gin.H{
-		"user": user,
+		"user": user.(models.User).ID,
 	})
 }
