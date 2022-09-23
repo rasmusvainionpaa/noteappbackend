@@ -5,7 +5,6 @@ import (
 	"net/http"
 	"noteappbackend/database"
 	"noteappbackend/routes"
-	"os"
 
 	"github.com/gin-gonic/gin"
 	"github.com/joho/godotenv"
@@ -34,5 +33,6 @@ func main() {
 	})
 
 	//starts server on spesified port
-	router.Run(os.Getenv("SERVER_PORT"))
+	//router.Run(os.Getenv("SERVER_PORT"))
+	router.Run(":8000")
 }
