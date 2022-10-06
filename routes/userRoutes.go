@@ -10,8 +10,7 @@ import (
 func RegisterUserRoutes(gin *gin.Engine) {
 
 	routes := gin.Group("/user")
-	routes.GET("/", usercontrollers.GetUser)
-	routes.GET("/:id", usercontrollers.GetUser)
+	routes.GET("/", middlewares.RequireAuth, usercontrollers.GetUser)
 	routes.PUT("/:id", middlewares.RequireAuth, usercontrollers.UpdateUser)
 	routes.POST("/signup", usercontrollers.CreateUser)
 	routes.POST("/login", usercontrollers.LoginUser)
