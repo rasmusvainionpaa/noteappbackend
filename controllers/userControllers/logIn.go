@@ -13,7 +13,7 @@ import (
 )
 
 type loginRequestBody struct {
-	Email    string `gorm:"unique" json:"email"`
+	Email    string `json:"email"`
 	Password string `json:"password"`
 }
 
@@ -67,7 +67,7 @@ func LoginUser(c *gin.Context) {
 	}
 
 	// set's token as cookie
-	c.SetSameSite(http.SameSiteLaxMode)
+	c.SetSameSite(http.SameSiteNoneMode)
 	c.SetCookie("Authorization", tokenString, 3600*24, "", "", true, true)
 
 	// send http code 200
