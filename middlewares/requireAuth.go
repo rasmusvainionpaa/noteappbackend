@@ -17,7 +17,10 @@ func RequireAuth(c *gin.Context) {
 	tokenString, err := c.Cookie("Authorization")
 
 	if err != nil {
-		c.AbortWithStatus(http.StatusUnauthorized)
+		c.JSON(http.StatusBadRequest, gin.H{
+			"error": "Failed to read token",
+		})
+		return
 	}
 
 	// Check token
@@ -32,7 +35,10 @@ func RequireAuth(c *gin.Context) {
 	if claims, ok := token.Claims.(jwt.MapClaims); ok && token.Valid {
 		// check exp
 		if float64(time.Now().Unix()) > claims["exp"].(float64) {
-			c.AbortWithStatus(http.StatusUnauthorized)
+			c.JSON(http.StatusBadRequest, gin.H{
+				"error": "Token expired",
+			})
+			return
 		}
 
 		// find user with token id
@@ -41,11 +47,10 @@ func RequireAuth(c *gin.Context) {
 		database.DB.First(&user, claims["sub"])
 
 		if user.ID == 0 {
-			c.AbortWithStatus(http.StatusUnauthorized)
-		}
-
-		if err != nil {
-			c.AbortWithStatus(http.StatusUnauthorized)
+			c.JSON(http.StatusBadRequest, gin.H{
+				"error": "Coudn't find user",
+			})
+			return
 		}
 
 		// set user
